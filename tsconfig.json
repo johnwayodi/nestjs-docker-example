@@ -6,6 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2017",
+    "typeRoots": ["node_modules/@types"],
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",

@@ -11,15 +11,8 @@ export interface IUser {
 }
 
 export interface ICreateUser {
-  username: string;
   email: string;
   password: string;
-  phone: string;
-  role: string;
-}
-
-export interface IUpdateUser {
-  username: string;
-  password: string;
-  phone: string;
+  firstName?: string;
+  lastName?: string;
 }

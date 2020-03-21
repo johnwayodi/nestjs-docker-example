@@ -1,23 +1,23 @@
 {
-  "name": "server-example",
+  "name": "nest-passport-jwt-eample",
   "version": "0.0.1",
-  "description": "Server example using nestjs, passport and Sequelize ORM",
-  "author": "johnwayodi",
+  "description": "",
+  "author": "",
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
-    "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
+    "start:dev": "NODE_ENV=development tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
+    "start:debug": "NODE_ENV=development tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "lint:fix": "tslint -p tsconfig.json -c tslint.json --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test": "NODE_ENV=testing jest",
+    "test:watch": "NODE_ENV=testing jest --watch",
+    "test:cov": "NODE_ENV=testing jest --coverage",
+    "test:debug": "NODE_ENV=testing node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "NODE_ENV=testing jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.8",
@@ -31,6 +31,7 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "csurf": "^1.10.0",
+    "dotenv-extended": "^2.7.1",
     "express-rate-limit": "^5.0.0",
     "helmet": "^3.21.2",
     "passport": "^0.4.0",
@@ -51,6 +52,7 @@
     "@nestjs/cli": "^6.8.1",
     "@nestjs/schematics": "^6.6.6",
     "@nestjs/testing": "^6.7.2",
+    "@types/bluebird": "^3.5.29",
     "@types/express": "^4.17.1",
     "@types/express-rate-limit": "^3.3.3",
     "@types/hapi__joi": "^16.0.4",
@@ -61,7 +63,11 @@
     "@types/passport-local": "^1.0.33",
     "@types/sequelize": "^4.28.8",
     "@types/supertest": "^2.0.8",
+    "@types/validator": "^12.0.1",
+    "commitplease": "^3.2.0",
+    "husky": "^4.0.10",
     "jest": "^24.9.0",
+    "lint-staged": "^10.0.1",
     "prettier": "^1.18.2",
     "supertest": "^4.0.2",
     "ts-jest": "^24.1.0",
@@ -71,6 +77,20 @@
     "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
+  },
+  "commitplease": {
+    "style": "angular",
+    "types": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "perf",
+      "test",
+      "chore"
+    ],
+    "scope": "\\S+.*"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -85,5 +105,15 @@
     },
     "coverageDirectory": "./coverage",
     "testEnvironment": "node"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "yarn lint:fix"
+    ]
   }
 }

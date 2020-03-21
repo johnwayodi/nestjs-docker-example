@@ -13,6 +13,8 @@
     "interface-name": [true, "always-prefix"],
     "prefer-object-spread": true,
     "arrow-parens": false,
+    "no-require-imports": false,
+    "no-var-requires": false,
     "no-async-without-await": true,
     "trailing-comma": false,
     "object-literal-sort-keys": false

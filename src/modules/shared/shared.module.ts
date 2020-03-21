@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ResponseService } from './services/response.service';
 
-@Module({})
+@Module({
+  providers: [ResponseService],
+  exports: [ResponseService],
+})
 export class SharedModule {}
