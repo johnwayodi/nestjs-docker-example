@@ -1,43 +1,47 @@
 import { Injectable, Inject } from '@nestjs/common';
 
-import { IUser, ICreateUser, IUpdateUser } from '../interfaces/user.interface';
+import { ICreateUser } from '../interfaces/user.interface';
 import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UserService {
   constructor(
-    @Inject('USERS_REPOSITORY') private readonly usersRepo: typeof User,
+    @Inject('USERS_REPOSITORY') private readonly userRepo: typeof User,
   ) {}
 
   async findAll(): Promise<User[]> {
-    return await this.usersRepo.findAll<User>({ raw: true });
+    const users = await this.userRepo.findAll<User>({ raw: true });
+    return users;
   }
 
-  async findById(userId: number): Promise<User> {
-    const user = await this.usersRepo.findOne({
-      where: { id: userId },
-      raw: true,
+  async findById(id: number): Promise<User> {
+    const user = await this.userRepo.findOne({
+      where: { id },
     });
     return user;
   }
 
   async findByUserName(username: string): Promise<User> {
-    return await this.usersRepo.findOne({ where: { username }, raw: true });
-  }
-
-  async add(data: any): Promise<User> {
-    const userToCreate = await this.usersRepo.create({ ...data });
-    const user = await userToCreate.save();
+    const user = await this.userRepo.findOne({
+      where: { username },
+    });
     return user;
   }
 
-  async update(userId: string, data: any): Promise<User> {
-    const userToUpdate = await this.usersRepo.findOne({
-      where: { id: userId },
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.userRepo.findOne({
+      where: { email },
+      raw: true,
     });
-    userToUpdate.username = data.username;
-    userToUpdate.password = data.password;
-    const updatedUser = await userToUpdate.save();
-    return updatedUser;
+    return user;
+  }
+
+  async create(data: ICreateUser): Promise<User> {
+    const { email, password } = data;
+    const newUser = await this.userRepo.create({ email, password });
+    // TODO: to be updated on the email verification feature
+    newUser.activated = true;
+    const user = await newUser.save();
+    return user;
   }
 }

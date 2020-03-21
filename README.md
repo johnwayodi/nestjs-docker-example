@@ -1,6 +1,8 @@
 ## Description
 
-Backend Server example. Authentication using passport and passport-jwt.
+Example Server example.
+Authentication using passport and passport-jwt.
+Docker Containerization
 
 ## Installation
 
@@ -13,12 +15,40 @@ $ cd nest-passport-jwt-example && yarn install
 
 ## Database Setup
 
-The application uses PostgreSQL as the database provider and Sequelize as the as the database driver.
+The application uses PostgreSQL as the database provider.
 
-Create a `.env` file on the root folder of the project.
+Create a `.env.development` file on the root folder of the project.
 file and set the variables accordingly
 
 ```bash
+APP_PORT=
+APP_SECRET=
+DB_HOST=
+DB_NAME=
+DB_USERNAME=
+DB_PASSWORD=
+DB_PORT=
+```
+
+## Running the app
+
+```bash
+# development
+$ yarn start:dev
+
+# watch mode
+$ yarn start:debug
+
+# production mode
+$ yarn start:prod
+```
+
+## Dockerized Application
+
+Create a `.env` file and set the appropiate variables for production server.
+
+```bash
+#production variables
 NODE_ENV=
 APP_PORT=
 APP_SECRET=
@@ -26,19 +56,22 @@ DB_HOST=
 DB_NAME=
 DB_USERNAME=
 DB_PASSWORD=
+DB_PORT=
+
+# Docker Stuff
+COMPOSE_PROJECT_NAME=
+APP_CONTAINER_NAME=
+APP_IMAGE_NAME=
+DB_CONTAINER_NAME=
 ```
 
-## Running the app
+To create all containers and run production ready app, ensure **Docker** is installed.
+
+On the projects root, run the following command:
 
 ```bash
-# development
-$ yarn start
-
-# watch mode
-$ yarn start:dev
-
-# production mode
-$ yarn start:prod
+# production server
+$ docker-compose up
 ```
 
 ## Testing the app
@@ -107,6 +140,8 @@ The API can be accessed `localhost:{APP_PORT}/api/v1` and exposes the following 
    </table>
 
 ## Test
+
+Create a `.env.testing` file and set the appropiate variables for testing server using format of the sample environment file.
 
 ```bash
 # unit tests

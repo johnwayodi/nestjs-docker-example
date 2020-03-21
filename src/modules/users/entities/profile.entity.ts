@@ -7,28 +7,36 @@ import {
   CreatedAt,
   UpdatedAt,
   DeletedAt,
-  HasOne,
+  BelongsTo,
+  ForeignKey,
 } from 'sequelize-typescript';
-import { UserProfile } from './profile.entity';
+import { User } from './user.entity';
 
 @Table
-export class User extends Model<User> {
+export class UserProfile extends Model<UserProfile> {
   @PrimaryKey
   @AutoIncrement
   @Column
   id: number;
 
   @Column
-  email: string;
+  firstName: string;
 
   @Column
-  password: string;
+  lastName: string;
 
   @Column
-  activated: boolean;
+  phoneNo: string;
 
-  @HasOne(() => UserProfile)
-  profile: UserProfile;
+  @Column
+  address: string;
+
+  @ForeignKey(() => User)
+  @Column
+  userId: number;
+
+  @BelongsTo(() => User)
+  user: User;
 
   @CreatedAt
   createdAt: Date;
