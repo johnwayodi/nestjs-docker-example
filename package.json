@@ -29,7 +29,7 @@
     "@nestjs/platform-express": "^6.10.12",
     "@nestjs/swagger": "^4.0.9",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.11.0",
+    "class-validator": "^0.14.0",
     "csurf": "^1.10.0",
     "dotenv-extended": "^2.7.1",
     "express-rate-limit": "^5.0.0",
